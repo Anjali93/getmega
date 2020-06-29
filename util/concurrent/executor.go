@@ -9,7 +9,7 @@ type GoRoutineExecutor struct {
 
 func (g GoRoutineExecutor) submit(f func() interface{}) Future {
 	ch := make(chan interface{}, 1)
-	future := &ChannelFuture{channel: ch, state: RUNNING}
+	future := &ChannelFuture{ch, RUNNING, nil}
 	go func() {
 		ch <- f()
 		if future.state == RUNNING {
